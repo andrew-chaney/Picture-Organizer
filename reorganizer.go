@@ -104,6 +104,7 @@ func getDate(picture string) [3]int {
 
 	dt, err := x.DateTime()
 	if err != nil {
+		// If there is an error in getting the date then put it in unknown
 		return [3]int{0, 0, 0}
 	}
 	return [3]int{dt.Year(), int(dt.Month()), dt.Day()}

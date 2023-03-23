@@ -79,7 +79,7 @@ func parseFiles(parent_path string, files []fs.FileInfo) [2][]string {
 		}
 		file := f.Name()
 		file_path := fmt.Sprintf("%s/%s", parent_path, file)
-		if strings.Contains(file, ".JPG") || strings.Contains(file, ".jpg") {
+		if strings.Contains(file, ".TIFF") || strings.Contains(file, ".tiff") || strings.Contains(file, ".JPG") || strings.Contains(file, ".jpg") || strings.Contains(file, ".PNG") || strings.Contains(file, ".png") {
 			output[0] = append(output[0], file_path)
 		} else {
 			output[1] = append(output[1], file_path)

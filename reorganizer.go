@@ -70,6 +70,17 @@ func parseArgs() string {
 	return args[0]
 }
 
+func validPath(path string) bool {
+	isPNG := strings.Contains(path, ".PNG") || strings.Contains(path, ".png")
+	isMOV := strings.Contains(path, ".MOV") || strings.Contains(path, ".mov")
+	isHEIC := strings.Contains(path, ".HEIC") || strings.Contains(path, ".heic")
+	isJPG := strings.Contains(path, ".JPG") || strings.Contains(path, ".jpg")
+	isJPEG := strings.Contains(path, ".JPEG") || strings.Contains(path, ".jpeg")
+	isTIFF := strings.Contains(path, ".TIFF") || strings.Contains(path, ".tiff")
+	isMP4 := strings.Contains(path, ".MP4") || strings.Contains(path, ".mp4")
+	return isPNG || isMOV || isHEIC || isJPG || isJPEG || isTIFF || isMP4
+}
+
 // Take in an array of files and output an array of file paths to just JPGs
 func parseFiles(parent_path string, files []fs.FileInfo) [2][]string {
 	var output [2][]string
@@ -79,7 +90,7 @@ func parseFiles(parent_path string, files []fs.FileInfo) [2][]string {
 		}
 		file := f.Name()
 		file_path := fmt.Sprintf("%s/%s", parent_path, file)
-		if strings.Contains(file, ".TIFF") || strings.Contains(file, ".tiff") || strings.Contains(file, ".JPG") || strings.Contains(file, ".jpg") || strings.Contains(file, ".PNG") || strings.Contains(file, ".png") {
+		if validPath(file) {
 			output[0] = append(output[0], file_path)
 		} else {
 			output[1] = append(output[1], file_path)
@@ -104,6 +115,7 @@ func getDate(picture string) [3]int {
 
 	dt, err := x.DateTime()
 	if err != nil {
+		println(err)
 		// If there is an error in getting the date then put it in unknown
 		return [3]int{0, 0, 0}
 	}
